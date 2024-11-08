@@ -1,0 +1,117 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.search-bar {
+  border: solid 1.5px #9e9e9e;
+  border-radius: 1rem;
+  background: none;
+  padding: 1rem;
+  font-size: 1rem;
+  color: black;
+  transition: border 150ms cubic-bezier(0.4,0,0.2,1);
+}
+
+.search-button {
+  border: solid 1.5px #9e9e9e;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-size: 1rem;
+
+}
+
+.search-label {
+  position: absolute;
+  left: 15px;
+  color: black;
+  pointer-events: none;
+  transform: translateY(1rem);
+  transition: 150ms cubic-bezier(0.4,0,0.2,1);
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-bar:focus, .search-bar:valid{
+  outline: none;
+  border: 1.5px solid #1a73e8;
+}
+
+.search-bar:focus ~ label, .search-bar:valid ~ label {
+  transform: translateY(-50%) scale(0.8);
+  background-color: white;
+  padding: 0 .2em;
+  color: #2196f3;
+}
+
+#content {  
+  display: none;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+img {
+  height: 50px;
+  width: 50px;
+  border-radius: 10px 10px 0 0;
+
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#hourInput {
+  border: solid 1.5px #9e9e9e;
+  border-radius: 1rem;
+  background: none;
+  padding: 1rem;
+  font-size: 1rem;
+  color: black;
+  transition: border 150ms cubic-bezier(0.4,0,0.2,1);
+  width: 64%;
+  margin-bottom: 10px;
+}
+
+#hourInput::placeholder{
+  color: black;
+  font-size: 1em;
+}
+
+.forecast {
+  border: 2px solid black;
+  flex: 1 1 calc(33.333% - 10px);
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.flex {
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}
