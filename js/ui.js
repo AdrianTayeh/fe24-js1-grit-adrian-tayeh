@@ -1,5 +1,4 @@
-// Create the elements for the forecast
-function createForecastElement(time, icon, city, temp, desc, wind) { // Create the elements for the forecast
+function createForecastElement(time, icon, city, temp, desc, wind) {
     const forecastElement = document.createElement("div");
     forecastElement.classList.add("forecast");
 
@@ -28,11 +27,10 @@ function createForecastElement(time, icon, city, temp, desc, wind) { // Create t
     forecastElement.appendChild(windElement);
 
     // Set background based on temperature
-    if(temp > 20){
+    if (temp > 20) {
         forecastElement.style.background = "rgb(242,242,241)";
         forecastElement.style.background = "linear-gradient(0deg, rgba(242,242,241,1) 0%, rgba(236,110,76,1) 80%)";
-    }
-    else {
+    } else {
         forecastElement.style.background = "rgb(242,242,241)";
         forecastElement.style.background = "linear-gradient(0deg, rgba(72,72,74,1) 0%, rgba(242,242,241,1) 80%)";
     }
@@ -40,16 +38,22 @@ function createForecastElement(time, icon, city, temp, desc, wind) { // Create t
     return forecastElement;
 }
 
-// Display the forecast with the hours from the input
-export function displayForecast(data, hoursForward) { 
+function appendForecastElement(content, time, icon, city, temp, desc, wind) {
+    const forecastElement = createForecastElement(time, icon, city, temp, desc, wind);
+    content.appendChild(forecastElement);
+}
+
+// Display the forecast with the hours from the input (API returns data every 3 hours)
+export function displayForecast(data, hoursForward) {
     const content = document.getElementById("content");
     content.innerHTML = "";
-    const forecastCount = Math.floor(hoursForward / 3)+1;
+    const forecastCount = Math.floor(hoursForward / 3) + 1;
 
     for (let i = 0; i < forecastCount; i++) {
         const forecast = data.list[i];
         const forecastTime = new Date(forecast.dt * 1000).toLocaleString();
-        const forecastElement = createForecastElement(
+        appendForecastElement(
+            content,
             forecastTime,
             forecast.weather[0].icon,
             data.city.name,
@@ -57,19 +61,19 @@ export function displayForecast(data, hoursForward) {
             forecast.weather[0].description,
             forecast.wind.speed
         );
-        content.appendChild(forecastElement);
     }
 
-    content.style.display = "flex";
+    content.classList.add("flex");
 }
 
 // Display the current weather
-export function displayCurrentWeather(data) { 
+export function displayCurrentWeather(data) {
     const content = document.getElementById("content");
     content.innerHTML = "";
 
     const currentTime = new Date().toLocaleString();
-    const forecastElement = createForecastElement(
+    appendForecastElement(
+        content,
         currentTime,
         data.weather[0].icon,
         data.name,
@@ -77,7 +81,20 @@ export function displayCurrentWeather(data) {
         data.weather[0].description,
         data.wind.speed
     );
-    content.appendChild(forecastElement);
 
-    content.style.display = "flex";
+    content.classList.add("flex");
+}
+
+// Display an error message
+export function displayErrorMessage(errorMessage) {
+    const content = document.getElementById("content");
+    content.innerHTML = "";
+
+    const errorElement = document.createElement("div");
+    errorElement.classList.add("error");
+    errorElement.innerText = errorMessage;
+
+    content.appendChild(errorElement);
+
+    content.classList.add("flex");
 }
